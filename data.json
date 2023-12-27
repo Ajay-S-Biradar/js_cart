@@ -1,0 +1,50 @@
+[
+    {
+        "id": 1,
+        "name": "MS01 MEN'S SHIRT",
+        "price": 30,
+        "image": "image/1.jpg"
+    },
+    {
+        "id": 2,
+        "name": "MS02 MEN'S SHIRT",
+        "price": 40,
+        "image": "image/2.jpg"
+    },
+    {
+        "id": 3,
+        "name": "MS03 MEN'S SHIRT",
+        "price": 35,
+        "image": "image/3.jpg"
+    },
+    {
+        "id": 4,
+        "name": "MS04 MEN'S SHIRT",
+        "price": 50,
+        "image": "image/4.jpg"
+    },
+    {
+        "id": 5,
+        "name": "MS05 MEN'S SHIRT",
+        "price": 45,
+        "image": "image/5.jpg"
+    },
+    {
+        "id": 6,
+        "name": "MS06 MEN'S SHIRT",
+        "price": 30,
+        "image": "image/6.jpg"
+    },
+    {
+        "id": 7,
+        "name": "MS07 MEN'S SHIRT",
+        "price": 25,
+        "image": "image/7.jpg"
+    },
+    {
+        "id": 8,
+        "name": "MS08 MEN'S SHIRT",
+        "price": 35,
+        "image": "image/8.jpg"
+    }
+]

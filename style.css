@@ -1,0 +1,61 @@
+body{
+    padding: 0 5rem;
+}
+
+.card{
+    width: 300px;
+    height: 400px;
+    border: 2px solid beige;
+    padding: 1rem;
+}
+
+.card > img{
+    width: 200px;
+    height: 250px;
+    object-fit: cover;
+}
+
+.cards{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cart{
+    position: relative;
+}
+.icon{
+    width: 2rem;
+    height: 2rem;
+}
+.icon:hover{
+    cursor:pointer;
+}
+.itemquantity{
+    position: absolute;
+    bottom: 5px;
+    right:12px;
+    color: rgb(158, 82, 183);
+    font-weight: bolder;
+    font-size: medium;
+}
+
+.hide{
+    display: none;
+}
+
+.show{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: aquamarine;
+    top: 20px;
+    right: 60px;
+}
