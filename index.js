@@ -3,29 +3,21 @@ const items = document.querySelector('.itemquantity');
 const cards = document.querySelector('.cards');
 const bag = document.querySelector('.bag');
 const cart = document.querySelector('.cart');
+const total = document.querySelector('.total');
+const numberofitems = document.querySelector('.itemquantity');
+
+let totalamt = 0;
 let flag = true;
 
 let cartitems = [];
 
 const init = async ()=>{
     const data =await fetch('data.json').then(res => res.json());
-    console.log(data);
     addToCards(data);
 }
 init();
 
 const addToCards = (data)=>{
-        // let card = document.createElement('div');
-        // let img = document.createElement('img');
-        // let title = document.createElement('h3');
-        // let price = document.createElement('h4');
-
-        // title.innerText=`${data[0].name}`;
-        // price.innerText = `${data[0].price}`;
-
-        // card.append(title);
-        // card.append(price);
-
     data.forEach(element => {
         let card = document.createElement('div');
         let img = document.createElement('img');
@@ -59,24 +51,51 @@ const addToCart = (ele)=>{
         cartitems[ele.id] = 1;
     }
     addingToCart(ele,cartitems);
+    updatenoitem();
 }
 
 const addingToCart = (ele,cartitems)=>{
     let name = document.createElement('h3');
     name.innerText = ele.name ;
     if(cartitems[ele.id]>1){
-        let updatecount = document.getElementsByClassName(`${ele.id}`);
-        updatecount[0].innerText = parseInt(updatecount[0].innerText)+1;
+        let update = document.getElementsByClassName(`${ele.id}`);
+        let count = (update[0].childNodes[2]) ;
+        count.innerText = parseInt(count.innerText) + 1;
+        let amt = (update[0].childNodes[4]);
+        amt.innerText = ele.price * parseInt(count.innerText) ; 
+        totalamt = totalamt - ele.price + ele.price * parseInt(count.innerText);
+        total.innerHTML = 
+        `<h3>Total Price: ${totalamt}</h3>`
     }
     else{    
         let count = document.createElement('h3');
+        let inc = document.createElement('h4');
+        let dcr = document.createElement('h4');
+        let amt = document.createElement('h3');
+
         count.innerText = cartitems[ele.id]
         let oneitem = document.createElement('li');
+        inc.classList.add('add');
+        dcr.classList.add('sub');
+        inc.addEventListener('click', () => {
+            addToCart(ele);
+        });
 
+        inc.innerText = '>';
+        dcr.innerText = '<';
+        totalamt += ele.price ;
+        amt.innerText = ele.price;
         oneitem.append(name);
-        count.classList.add(`${ele.id.toString()}`);
+        oneitem.classList.add(`${ele.id.toString()}`);
+        oneitem.append(dcr)
         oneitem.append(count);
+        oneitem.classList.add('bagitem');
+        oneitem.append(inc)
+        oneitem.append(amt);
         bag.appendChild(oneitem);
+
+        total.innerHTML = 
+        `<h3>Total Price: ${totalamt}</h3>`
     }
 }
 
@@ -91,3 +110,7 @@ cart.addEventListener('click',()=>{
     bag.classList.remove('hide');
     flag = false;
 })
+
+const updatenoitem = ()=>{
+    numberofitems.innerText = (bag.childNodes.length-3);
+}

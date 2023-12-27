@@ -40,8 +40,8 @@ body{
 }
 .itemquantity{
     position: absolute;
-    bottom: 5px;
-    right:12px;
+    top: 0;
+    right: 0;
     color: rgb(158, 82, 183);
     font-weight: bolder;
     font-size: medium;
@@ -56,6 +56,13 @@ body{
     flex-direction: column;
     position: absolute;
     background-color: aquamarine;
-    top: 20px;
-    right: 60px;
+    top: 45px;
+    right: 20px;
+}
+
+.bagitem{
+    display: flex;
+    width: 250px;
+    list-style: none;
+    justify-content: space-around;
 }
