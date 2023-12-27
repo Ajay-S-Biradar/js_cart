@@ -24,9 +24,14 @@ const addToCards = (data)=>{
         let title = document.createElement('h3');
         let price = document.createElement('h4');
         let buybtn = document.createElement('button');
-
+        let rmbtn = document.createElement('button');
+        rmbtn.innerText = "remove";
         buybtn.addEventListener('click',(()=>{
             addToCart(element);
+        }))
+
+        rmbtn.addEventListener('click',(()=>{
+            removefromcart(element);
         }))
 
         img.src = `${element.image}` ;
@@ -39,27 +44,47 @@ const addToCards = (data)=>{
         card.appendChild(buybtn);
         card.classList.add('card');
         cards.append(card);
+        card.appendChild(rmbtn);
     });
 
 }
 
 const addToCart = (ele)=>{
     if(cartitems[ele.id]){
-        cartitems[ele.id]+=1 ;
+      cartitems[ele.id]+=1 ;
     }
     else{
-        cartitems[ele.id] = 1;
+      cartitems[ele.id] = 1;
     }
     addingToCart(ele,cartitems);
     updatenoitem();
+  }
+
+
+const removefromcart = (ele) => {
+    let i = 3;
+    let count = parseInt(numberofitems.innerText);
+    if(cartitems[ele.id]){
+        while(i<bag.childNodes.length){
+            if(bag.childNodes[i].classList.contains(ele.id)){
+                bag.removeChild(bag.childNodes[i]);
+                count-=1;
+                numberofitems.innerText = count ;
+                cartitems[ele.id]=0 ;
+                return ;
+            }
+            i+=1;
+        }
+    }
 }
+
 
 const addingToCart = (ele,cartitems)=>{
     let name = document.createElement('h3');
     name.innerText = ele.name ;
     if(cartitems[ele.id]>1){
         let update = document.getElementsByClassName(`${ele.id}`);
-        let count = (update[0].childNodes[2]) ;
+        let count = (update[0]?.childNodes[2]) ;
         count.innerText = parseInt(count.innerText) + 1;
         let amt = (update[0].childNodes[4]);
         amt.innerText = ele.price * parseInt(count.innerText) ; 
@@ -96,6 +121,7 @@ const addingToCart = (ele,cartitems)=>{
 
         total.innerHTML = 
         `<h3>Total Price: ${totalamt}</h3>`
+
     }
 }
 
