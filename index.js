@@ -67,15 +67,12 @@ const removefromcart = (ele) => {
     if(cartitems[ele.id]){
         while(i<bag.childNodes.length){
             if(bag.childNodes[i].classList.contains(ele.id)){
+                let nitem = parseInt(bag.childNodes[i].childNodes[4].innerText);
                 bag.removeChild(bag.childNodes[i]);
                 count-=1;
                 numberofitems.innerText = count ;
                 cartitems[ele.id]=0 ;
-                // let nitem = parseInt
-                console.log(bag.childNodes);
-                // console.log(nitem);
-                totalamt = totalamt - ele.price;
-                // console.log(totalamt);
+                totalamt = totalamt - ele.price*nitem;
                 total.innerText = totalamt;
                 return ;
             }
@@ -95,11 +92,22 @@ const subcartitem = (ele)=>{
                     bag.removeChild(bag.childNodes[i]);
                     numberofitems.innerText = count-1 ;
                     cartitems[ele.id]=0 ;
+                    totalamt-= ele.price ;
+                    if(totalamt===0){
+                        total.innerHTML = 
+                        `<h3>Ntg in the cart</h3>`;
+                        return ;
+                    }
+                    total.innerHTML = 
+                        `<h3>Total Price: ${totalamt}</h3>`;
                     return ;
                 }
                 else{
                     bag.childNodes[i].childNodes[2].innerText = nitem-=1;
-                    bag.childNodes[i].childNodes[4].innerText=nitem*ele.price;
+                    bag.childNodes[i].childNodes[4].innerText = nitem*ele.price;
+                    totalamt = totalamt - ele.price;
+                    total.innerHTML = 
+                        `<h3>Total Price: ${totalamt}</h3>`;
                 }
                 return ;
             }
@@ -118,7 +126,7 @@ const addingToCart = (ele,cartitems)=>{
         count.innerText = parseInt(count.innerText) + 1;
         let amt = (update[0].childNodes[4]);
         amt.innerText = ele.price * parseInt(count.innerText) ; 
-        totalamt = totalamt - ele.price + ele.price * parseInt(count.innerText);
+        totalamt = totalamt + ele.price // + ele.price * parseInt(count.innerText);
         total.innerHTML = 
         `<h3>Total Price: ${totalamt}</h3>`
     }
@@ -142,7 +150,7 @@ const addingToCart = (ele,cartitems)=>{
 
         inc.innerText = '>';
         dcr.innerText = '<';
-        totalamt += ele.price ;
+        totalamt += ele.price;
         amt.innerText = ele.price;
         oneitem.append(name);
         oneitem.classList.add(`${ele.id.toString()}`);
