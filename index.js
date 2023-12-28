@@ -71,6 +71,36 @@ const removefromcart = (ele) => {
                 count-=1;
                 numberofitems.innerText = count ;
                 cartitems[ele.id]=0 ;
+                // let nitem = parseInt
+                console.log(bag.childNodes);
+                // console.log(nitem);
+                totalamt = totalamt - ele.price;
+                // console.log(totalamt);
+                total.innerText = totalamt;
+                return ;
+            }
+            i+=1;
+        }
+    }
+}
+
+const subcartitem = (ele)=>{
+    let i = 3;
+    let count = parseInt(numberofitems.innerText);
+    if(cartitems[ele.id]){
+        while(i<bag.childNodes.length){
+            if(bag.childNodes[i].classList.contains(ele.id)){
+                let nitem = parseInt(bag.childNodes[i].childNodes[2].innerText);
+                if(nitem==1){
+                    bag.removeChild(bag.childNodes[i]);
+                    numberofitems.innerText = count-1 ;
+                    cartitems[ele.id]=0 ;
+                    return ;
+                }
+                else{
+                    bag.childNodes[i].childNodes[2].innerText = nitem-=1;
+                    bag.childNodes[i].childNodes[4].innerText=nitem*ele.price;
+                }
                 return ;
             }
             i+=1;
@@ -105,6 +135,10 @@ const addingToCart = (ele,cartitems)=>{
         inc.addEventListener('click', () => {
             addToCart(ele);
         });
+
+        dcr.addEventListener('click',(()=>{
+            subcartitem(ele);
+        }))
 
         inc.innerText = '>';
         dcr.innerText = '<';
