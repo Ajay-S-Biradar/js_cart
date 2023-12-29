@@ -14,6 +14,11 @@ let cartitems = [];
 const init = async ()=>{
     const data =await fetch('data.json').then(res => res.json());
     addToCards(data);
+    if(totalamt===0){
+        total.innerHTML = 
+        `<h3>Ntg in the cart</h3>`;
+        return ;
+    }
 }
 init();
 
@@ -67,13 +72,20 @@ const removefromcart = (ele) => {
     if(cartitems[ele.id]){
         while(i<bag.childNodes.length){
             if(bag.childNodes[i].classList.contains(ele.id)){
-                let nitem = parseInt(bag.childNodes[i].childNodes[4].innerText);
+                let nitem = parseInt(bag.childNodes[i].childNodes[2].innerText);
+                console.log(nitem);
                 bag.removeChild(bag.childNodes[i]);
                 count-=1;
                 numberofitems.innerText = count ;
                 cartitems[ele.id]=0 ;
                 totalamt = totalamt - ele.price*nitem;
-                total.innerText = totalamt;
+                if(totalamt===0){
+                    total.innerHTML = 
+                    `<h3>Ntg in the cart</h3>`;
+                    return ;
+                }
+                total.innerHTML = 
+                        `<h3>Total Price: ${totalamt}</h3>`;
                 return ;
             }
             i+=1;
